@@ -58,7 +58,7 @@ Open Browser and Load URL
     Open Browser    https://www.toolsqa.com/       chrome
     Sleep    1s
     Maximize Browser Window
-    Wait Until Page Contains Element    ${header}    2s
+    Wait Until Page Contains Element    ${header}    10s
     Wait Until Page Contains     ${text}      5s
     Close Browser
     Sleep    1s
