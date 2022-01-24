@@ -13,4 +13,4 @@
 #
 # =====================================================================================
 
-text = u"Selenium Online Trainings"
+text = u"Employee Management System"

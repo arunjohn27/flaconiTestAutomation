@@ -24,11 +24,11 @@ Library    BuiltIn
 Library    FakerLibrary
 Library    String
 
-#Variables    ../../Firestorm/ElementLocators_FS_EmployeeRegistration.py
-Variables    /Users/arunjohn/PycharmProjects/LearningProject/TestData/TestData_Web.py
-Variables    /Users/arunjohn/PycharmProjects/LearningProject/ObjectRepository/Element_Locators_Web.py
+Variables    ${EXECDIR}/TestData/TestData_Web.py
+Variables    ${EXECDIR}/ObjectRepository/Element_Locators_Web.py
 
 ***Variables***
+
 #${applicant_emailID}=    Ascii Email
 #${applicant_firstname}=    First Name Male
 #${applicant_lastname}=    Last Name Male
@@ -55,11 +55,13 @@ ${browserstack_accessKey}      AdphtEzPHqGe9Zc1B74r
 ###################################################################
 Open Browser and Load URL
 #[Arguments]    ${url}
-    Open Browser    https://www.toolsqa.com/       chrome
+    Open Browser    https://fireapp-dev.wrg-apps.com/login       chrome
     Sleep    1s
     Maximize Browser Window
-    Wait Until Page Contains Element    ${header}    10s
-    Wait Until Page Contains     ${text}      5s
+    Sleep    3s
+    Wait Until Page Contains    ${text}    3s
+    Input Text    //*[@id="app"]/div[2]/form/div[1]/input    user
+    Sleep    2s
     Close Browser
     Sleep    1s
 

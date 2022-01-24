@@ -25,8 +25,8 @@ Library    FakerLibrary
 Library    String
 
 #Variables    ../../Firestorm/ElementLocators_FS_EmployeeRegistration.py
-Variables    /Users/arunjohn/PycharmProjects/LearningProject/ObjectRepository/Element_Locators_Mobile.py
-Variables    /Users/arunjohn/PycharmProjects/LearningProject/TestData/Test_Data_Mobile.py
+Variables    ../../ObjectRepository/Element_Locators_Mobile.py
+Variables    ../../TestData/Test_Data_Mobile.py
 
 ***Variables***
 #${applicant_emailID}=    Ascii Email

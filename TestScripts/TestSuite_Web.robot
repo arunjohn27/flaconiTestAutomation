@@ -18,7 +18,7 @@
 Library  SeleniumLibrary    60
 
 #Resource   ../Utilities/HelperMethods.txt
-Resource    /Users/arunjohn/PycharmProjects/LearningProject/ResourceFiles/ResourcesForTestSuite_Web.txt
+Resource    ${EXECDIR}/ResourceFiles/ResourcesForTestSuite_Web.txt
 #Resource    ../Utilities/CustomKeywords.txt
 #Resource    ../ReportingServices/testrailresource.robot
 #Suite Setup  Suite_setup
