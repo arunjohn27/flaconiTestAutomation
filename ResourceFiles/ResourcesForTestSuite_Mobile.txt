@@ -1,0 +1,69 @@
+=====================================================================================
+#    Filename   :  ResourcesForTestSuite_Mobile.txt
+#
+#    Description:  This file contains all the Keywords to be used in main TestSuite ofr Mobile
+#
+#    Version    :  1.0
+#    Created    :  25/01/2022
+#    Compiler   :  python
+#    Author     :  Arun John
+#    Company    :
+#
+#    Revision History:
+#
+# =====================================================================================
+
+
+
+*** Settings ***
+
+Library  SeleniumLibrary    timeout=00:00:01    implicit_wait=2 seconds    run_on_failure=Capture Page Screenshot    screenshot_root_directory=None    plugins=None    event_firing_webdriver=None
+Library     Collections
+Library    DateTime
+Library    BuiltIn
+Library    FakerLibrary
+Library    String
+
+#Variables    ../../Firestorm/ElementLocators_FS_EmployeeRegistration.py
+Variables    /Users/arunjohn/PycharmProjects/LearningProject/ObjectRepository/Element_Locators_Mobile.py
+Variables    /Users/arunjohn/PycharmProjects/LearningProject/TestData/Test_Data_Mobile.py
+
+***Variables***
+#${applicant_emailID}=    Ascii Email
+#${applicant_firstname}=    First Name Male
+#${applicant_lastname}=    Last Name Male
+#${applicant_full_name}=    Catenate    ${applicant_firstname}    ${applicant_lastname}
+${UploadFiletest}    xpath=//*[@id="app"]/div[2]/div/div/div[3]/div[1]/div/input
+${AddFile}    //${EXECDIR}//Resources//user123.jpeg
+${baseUrl}                     https://wave.webaim.org/
+${os}                          windows
+${osVersion}                   10
+${browser_browserstack_param}     chrome
+${browserVersion}              92
+${browserstack_userName}       team@whiterabbit.group
+${browserstack_accessKey}      AdphtEzPHqGe9Zc1B74r
+
+#${AddFile}    \\Users\\arunjohn\\Downloads\\screenshot.png
+
+
+
+***Keywords***
+
+###################################################################
+# KeyWord Name : Open Browser and Load URL
+# Document     : Keyword to verify chrome browser is open with the expected URL
+###################################################################
+Open Browser and Load URL
+#[Arguments]    ${url}
+    Open Browser      ${employee_registration_url}     ${browser}
+    Sleep    1s
+    Maximize Browser Window
+    Wait Until Page Contains     ${new_application_text}      30s
+    Sleep    1s
+
+
+
+
+
+
+
