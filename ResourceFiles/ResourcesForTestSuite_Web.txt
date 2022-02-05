@@ -23,6 +23,8 @@ Library    DateTime
 Library    BuiltIn
 Library    FakerLibrary
 Library    String
+Library    RequestsLibrary
+Library    String
 
 Variables    ${EXECDIR}/TestData/TestData_Web.py
 Variables    ${EXECDIR}/ObjectRepository/Element_Locators_Web.py
@@ -44,7 +46,7 @@ ${browserstack_userName}       team@whiterabbit.group
 ${browserstack_accessKey}      AdphtEzPHqGe9Zc1B74r
 
 #${AddFile}    \\Users\\arunjohn\\Downloads\\screenshot.png
-
+${BASE_URL}    https://www.flaconi.de/
 
 
 ***Keywords***
@@ -55,15 +57,50 @@ ${browserstack_accessKey}      AdphtEzPHqGe9Zc1B74r
 ###################################################################
 Open Browser and Load URL
 #[Arguments]    ${url}
-    Open Browser    https://fireapp-dev.wrg-apps.com/login       chrome
-    Sleep    1s
+    Open Browser    ${url}       ${browser}
     Maximize Browser Window
+    Sleep    5s
+    Press Keys    None    TAB
+    Press Keys    None    TAB
+    Press Keys    None    TAB
+    Press Keys    None    TAB
+    Press Keys    None    TAB
+    Press Keys    None    TAB
+    Press Keys    None    RETURN
+    Capture Page Screenshot
+    Wait Until Page Contains Element    //*[@id="9cc0cc28-c7cc-4e58-a7e2-56cf162888fb"]/div[2]/ul/li[4]/a
+    Mouse Over    //*[@id="9cc0cc28-c7cc-4e58-a7e2-56cf162888fb"]/div[2]/ul/li[4]/a
     Sleep    3s
-    Wait Until Page Contains    ${text}    3s
-    Input Text    //*[@id="app"]/div[2]/form/div[1]/input    user
+    Capture Page Screenshot
+    ${element_list}=     get webelements     xpath=//a[@href="/make-up/"]
+    ${href_list}=  Evaluate  [item.get_attribute('href') for item in $element_list]
+    Log    ${href_list}
+
+    Create Session    testing    ${BASE_URL}
+    FOR    ${element_href}    IN    @{href_list}
+        ${uri}=    Remove String    ${element_href}    ${BASE_URL}
+        ${contains_base_url}=    Evaluate     "${BASE_URL}" in "${element_href}"
+        ${response}=    Run Keyword If    ${contains_base_url}    Get Request    testing    ${uri}
+        Run Keyword If    ${contains_base_url}    Should Be Equal As Strings     ${response.status_code}    200
+    END
+################
+    Click Element    //*[@id="9cc0cc28-c7cc-4e58-a7e2-56cf162888fb"]/div[2]/ul/li[2]/a
+    Sleep    3s
+    Capture Page Screenshot
+    Scroll Element into View    //*[@id="e24e80dc-1dae-4afb-bbdc-36c508454da8"]/section[1]/div/div[1]/a/div[2]
+    Click Element    //*[@id="e24e80dc-1dae-4afb-bbdc-36c508454da8"]/section[1]/div/div[1]/a/div[2]
+    Sleep    3s
+    Scroll Element into View    //*[@id="5813d19e-1cc6-46f2-9e04-95907b1df000"]/div/div[1]/button[2]
+    Click Element    //*[@id="5813d19e-1cc6-46f2-9e04-95907b1df000"]/div/div[1]/button[2]
+    Sleep    3s
+    Wait Until Page Contains    Zum Warenkorb    5s
+    Click Element       //*[contains(text(),'Zum Warenkorb')]
+    Wait Until Page Contains Element    //*[@id="voucherCode"]
+    Input Text    //*[@id="voucherCode"]    abc123
     Sleep    2s
-    Close Browser
-    Sleep    1s
+    Click Button    //*[@id="af2482bc-0b83-4fe4-a007-aa49f97e3fd9"]/div/div[1]/form/div/div[2]/button
+    Wait Until Page Contains    Es tut uns Leid! Der Gutscheincode ist nicht verfügbar.
+    Capture Page Screenshot
 
 
 

@@ -13,4 +13,6 @@
 #
 # =====================================================================================
 
-text = u"Employee Management System"
+url = u"https://www.flaconi.de/"
+browser = u"chrome"
+text = u"Make up"

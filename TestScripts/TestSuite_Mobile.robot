@@ -43,7 +43,7 @@ Test case C14733: Verify user is able to login with a valid username and passwor
     #Open Application	${appium_host}    platformName=${platform_name}    deviceName=${deviceName}  app=${app}  udid=${udid}    platformVersion=${platformVersion}
     Open Application    ${appium_host}    platformName=${platform_name}    platformVersion=${platformVersion}    deviceName=${deviceName}  udid=${Device_udid}    app=${App_path}    appActivity=${Android_activity_name}    appPackage=${Android_package_name}    automationName=UiAutomator2    newCommandTimeout=120    androidInstallTimeout=360000    autoGrantPermissions=true
     Sleep    2s
-    AppiumLibrary.Capture Page Screenshot
+    #AppiumLibrary.Capture Page Screenshot
     #Click Text    Yes
     AppiumLibrary.Page Should Contain Text    YES
     Click Text    NO

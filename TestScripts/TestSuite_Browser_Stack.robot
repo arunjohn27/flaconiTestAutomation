@@ -1,5 +1,5 @@
 ##############################################################################
-#    Filename   :  TestSuite_Browser_Suite.robot
+#    Filename   :  TestSuite_Browser_Stack.robot
 #
 #    Description:  To Automate the web in any OS/Mobile
 #
