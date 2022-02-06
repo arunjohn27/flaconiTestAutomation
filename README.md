@@ -7,3 +7,5 @@ Create Session Keyword : https://marketsquare.github.io/robotframework-requests/
 GET on Session : https://marketsquare.github.io/robotframework-requests/doc/RequestsLibrary.html#GET%20On%20Session
 
 Get WebElement : https://robotframework.org/SeleniumLibrary/SeleniumLibrary.html#Get%20WebElements
+
+Evaluate : https://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Evaluate
