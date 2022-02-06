@@ -48,10 +48,14 @@ Open URL & Validate API response for sub menu
     Wait Until Page Contains Element    ${makeup_menu_xpath}
     Mouse Over    ${makeup_menu_xpath}
     Sleep    2s
-    ${element_list}=     get webelements     xpath=//a[@href="/make-up/"]
+
+    #Get a list of all the links that has base_url+/make-up/ in the below code
+
+    ${element_list}=     Get Webelements     xpath=//a[@href="/make-up/"]
     ${href_list}=  Evaluate  [item.get_attribute('href') for item in $element_list]
     Log to console    ${href_list}
 
+    #iterate through the list of all links, create a http request and verify the response code is 200
     Create Session    testing    ${BASE_URL}
     FOR    ${element_href}    IN    @{href_list}
         ${uri}=    Remove String    ${element_href}    ${BASE_URL}
@@ -59,7 +63,7 @@ Open URL & Validate API response for sub menu
         ${response}=    Run Keyword If    ${contains_base_url}    GET On Session    testing    ${uri}
         Run Keyword If    ${contains_base_url}    Should Be Equal As Strings     ${response.status_code}    200
     END
-
+    #this testcase fails if any of the response returns any code other than 200
 
 ######################################################################################################
 # KeyWord Name : Add a Product to Cart & Validate Invalid Coupon Code Message
