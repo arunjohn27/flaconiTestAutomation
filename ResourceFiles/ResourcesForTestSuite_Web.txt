@@ -30,77 +30,59 @@ Variables    ${EXECDIR}/TestData/TestData_Web.py
 Variables    ${EXECDIR}/ObjectRepository/Element_Locators_Web.py
 
 ***Variables***
-
-#${applicant_emailID}=    Ascii Email
-#${applicant_firstname}=    First Name Male
-#${applicant_lastname}=    Last Name Male
-#${applicant_full_name}=    Catenate    ${applicant_firstname}    ${applicant_lastname}
-${UploadFiletest}    xpath=//*[@id="app"]/div[2]/div/div/div[3]/div[1]/div/input
-${AddFile}    //${EXECDIR}//Resources//user123.jpeg
-${baseUrl}                     https://wave.webaim.org/
-${os}                          windows
-${osVersion}                   10
-${browser_browserstack_param}     chrome
-${browserVersion}              92
-${browserstack_userName}       team@whiterabbit.group
-${browserstack_accessKey}      AdphtEzPHqGe9Zc1B74r
-
-#${AddFile}    \\Users\\arunjohn\\Downloads\\screenshot.png
 ${BASE_URL}    https://www.flaconi.de/
 
 
 ***Keywords***
 
-###################################################################
-# KeyWord Name : Open Browser and Load URL
-# Document     : Keyword to verify chrome browser is open with the expected URL
-###################################################################
-Open Browser and Load URL
-#[Arguments]    ${url}
+#################################################################################
+# KeyWord Name : Open URL & Validate API response for sub menu
+# Document     : Keyword to open a browser and verify api response of submenu
+#################################################################################
+Open URL & Validate API response for sub menu
     Open Browser    ${url}       ${browser}
     Maximize Browser Window
     Sleep    5s
-    Press Keys    None    TAB
-    Press Keys    None    TAB
-    Press Keys    None    TAB
-    Press Keys    None    TAB
-    Press Keys    None    TAB
-    Press Keys    None    TAB
+    Repeat Keyword    6 times    Press Keys    None    TAB
     Press Keys    None    RETURN
-    Capture Page Screenshot
-    Wait Until Page Contains Element    //*[@id="9cc0cc28-c7cc-4e58-a7e2-56cf162888fb"]/div[2]/ul/li[4]/a
-    Mouse Over    //*[@id="9cc0cc28-c7cc-4e58-a7e2-56cf162888fb"]/div[2]/ul/li[4]/a
-    Sleep    3s
-    Capture Page Screenshot
+    Wait Until Page Contains Element    ${makeup_menu_xpath}
+    Mouse Over    ${makeup_menu_xpath}
+    Sleep    2s
     ${element_list}=     get webelements     xpath=//a[@href="/make-up/"]
     ${href_list}=  Evaluate  [item.get_attribute('href') for item in $element_list]
-    Log    ${href_list}
+    Log to console    ${href_list}
 
     Create Session    testing    ${BASE_URL}
     FOR    ${element_href}    IN    @{href_list}
         ${uri}=    Remove String    ${element_href}    ${BASE_URL}
         ${contains_base_url}=    Evaluate     "${BASE_URL}" in "${element_href}"
-        ${response}=    Run Keyword If    ${contains_base_url}    Get Request    testing    ${uri}
+        ${response}=    Run Keyword If    ${contains_base_url}    GET On Session    testing    ${uri}
         Run Keyword If    ${contains_base_url}    Should Be Equal As Strings     ${response.status_code}    200
     END
-################
-    Click Element    //*[@id="9cc0cc28-c7cc-4e58-a7e2-56cf162888fb"]/div[2]/ul/li[2]/a
+
+
+######################################################################################################
+# KeyWord Name : Add a Product to Cart & Validate Invalid Coupon Code Message
+# Document     : Keyword to add a random product to cart and validate invalid coupon code message
+######################################################################################################
+Add a Product to Cart & Validate Invalid Coupon Code Message
+    Click Element    ${perfume_menu_xpath}
     Sleep    3s
-    Capture Page Screenshot
-    Scroll Element into View    //*[@id="e24e80dc-1dae-4afb-bbdc-36c508454da8"]/section[1]/div/div[1]/a/div[2]
-    Click Element    //*[@id="e24e80dc-1dae-4afb-bbdc-36c508454da8"]/section[1]/div/div[1]/a/div[2]
+    Scroll Element into View    ${random_product_plp_xpath}
+    Click Element    ${random_product_plp_xpath}
     Sleep    3s
-    Scroll Element into View    //*[@id="5813d19e-1cc6-46f2-9e04-95907b1df000"]/div/div[1]/button[2]
-    Click Element    //*[@id="5813d19e-1cc6-46f2-9e04-95907b1df000"]/div/div[1]/button[2]
+    Scroll Element into View    ${random_product_pdp_add_to_cart_button_xpath}
+    Click Element    ${random_product_pdp_add_to_cart_button_xpath}
     Sleep    3s
-    Wait Until Page Contains    Zum Warenkorb    5s
-    Click Element       //*[contains(text(),'Zum Warenkorb')]
-    Wait Until Page Contains Element    //*[@id="voucherCode"]
-    Input Text    //*[@id="voucherCode"]    abc123
+    Wait Until Page Contains    ${proceed_to_cart_text}    5s
+    Click Element       //*[contains(text(),'${proceed_to_cart_text}')]
+    Wait Until Page Contains Element    ${coupon_code_field_id}
+    Input Text    ${coupon_code_field_id}    ${random_coupon_code}
     Sleep    2s
-    Click Button    //*[@id="af2482bc-0b83-4fe4-a007-aa49f97e3fd9"]/div/div[1]/form/div/div[2]/button
-    Wait Until Page Contains    Es tut uns Leid! Der Gutscheincode ist nicht verfügbar.
+    Click Button    ${redeem_coupon_button_xpath}
+    Wait Until Page Contains    ${invalid_coupon_code_error_message}
     Capture Page Screenshot
+    Close Browser
 
 
 
